@@ -4,11 +4,15 @@ package ConcertSeatReservation_System;
 // Import packages
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
+
+    private Queue<Integer> queue = new LinkedList<>();
 
     public Login() {
         initComponents();
@@ -138,15 +142,22 @@ public class Login extends javax.swing.JFrame {
         String pass = "68n81f61";
         String eusern = username.getText();
         String usern = "CAROSEFAN";
-        if (eusern.equals(usern) && ep.equals(pass)){
+
+        if (eusern.equals(usern) && ep.equals(pass)) {
             JOptionPane.showMessageDialog(null, "Login successfully!");
+
+            Random random = new Random();
+            int qnum = random.nextInt(100);
+
+            // Enqueue the generated queue number
+            queue.offer(qnum);
+
             QueuingEntry qe = new QueuingEntry();
             qe.show();
             dispose();
-            
-            Random random = new Random();
-            int qnum = random.nextInt(100);
-            qe.queueing_num.setText(""+qnum);
+
+            // Set the queue number in the new frame
+            qe.queueing_num.setText(String.valueOf(qnum));
         } else {
             JOptionPane.showMessageDialog(null, "Login failed. Check username or password.");
         }
